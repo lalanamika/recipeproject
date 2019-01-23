@@ -16,7 +16,7 @@ def signup(request):
                 # login as that user
                 user = authenticate(request, username=request.POST['username'], password=request.POST['password1'])
                 login(request, user)
-                return render(request, 'accounts/signup.html')
+                return render(request, 'accounts/signup.html', {'error': 'Sign up successful !'})
         else:
             return render(request, 'accounts/signup.html', {'error': 'Error: Passwords did not match.'})
     else:

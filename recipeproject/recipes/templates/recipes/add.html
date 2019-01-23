@@ -1,18 +1,24 @@
 <h1>Add a Recipe</h1>
-  {% if error %}
-  {{ error }}
-  <br /> <br />
-  {% endif %}
-  <form method="POST" action="{% url 'recipes:add' %}">
-    {% csrf_token %}
+<a href="{% url 'home' %}">Home</a><br />
+<a href="{% url 'recipes:add' %}">Add a Recipe</a><br />
+<a href="{% url 'recipes:delete' %}">Delete a Recipe</a><br />
+<a href="{% url 'accounts:login' %}">Sign In</a><br />
+<a href="{% url 'accounts:signup' %}">Sign up</a><br />
 
-    Name:
-    <br />
-    <input type="text" name="name" />
-    <br />
-    Content:
-    <br />
-    <input type="text" name="content" />
-    <br />
-    <input type="submit" value="Post" />
-  </form>
+{% if error %}
+{{ error }}
+<br /> <br />
+{% endif %}
+<form method="POST" action="{% url 'recipes:add' %}">
+  {% csrf_token %}
+
+  Name:
+  <br />
+  <input type="text" name="name" />
+  <br />
+  Content:
+  <br />
+  <input type="text" name="content" />
+  <br /><br />
+  <input type="submit" value="Post" />
+</form>
