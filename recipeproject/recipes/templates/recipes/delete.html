@@ -1,0 +1,13 @@
+<h1>Delete a Recipe</h1>
+  {% if error %}
+  {{ error }}
+  {% endif %}
+  <br /> <br />
+<form method="POST" action="{% url 'recipes:delete' %}">
+  {% csrf_token %}
+  Enter the id of the recipe you want to delete:
+  <br />
+  <input type="text" name="recipe_del_id" />
+  <br />
+  <input type="submit" value="Delete this recipe" />
+</form>

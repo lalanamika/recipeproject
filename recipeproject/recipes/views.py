@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Recipe
+from django.http import Http404
 
 # Create your views here.
 @login_required # decorator that forces user to be logged in to proceed on this page
@@ -31,6 +32,21 @@ def home(request):
 
 def recipe_details(request, recipe_id):
     # retrive from db, given the id
-    recipe =get_object_or_404(Recipe, pk=recipe_id)
-    # return render(request, 'recipes/add.html')
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
     return render(request, 'recipes/recipe_details.html', {'recipe':recipe})
+
+def deleterecipe(request):
+    if request.method == 'POST':
+        try:
+            if request.POST['recipe_del_id']:
+                recipe_del_id = request.POST['recipe_del_id']
+                recipe = get_object_or_404(Recipe, pk=recipe_del_id)
+                recipe.delete()
+                return render(request, 'recipes/delete.html', {'error':'Deletion was successful !'})
+            else:
+                return render(request, 'recipes/delete.html', {'error':'Error: Please specify a recipe id'})
+        except Http404:
+            return render(request, 'recipes/delete.html', {'error':'Error: The id was not found'})
+    else:
+        if request.method == 'GET':
+            return render(request, 'recipes/delete.html')
