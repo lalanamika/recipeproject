@@ -1,0 +1,18 @@
+<h1>Add a Recipe</h1>
+  {% if error %}
+  {{ error }}
+  <br /> <br />
+  {% endif %}
+  <form method="POST" action="{% url 'recipes:add' %}">
+    {% csrf_token %}
+
+    Name:
+    <br />
+    <input type="text" name="name" />
+    <br />
+    Content:
+    <br />
+    <input type="text" name="content" />
+    <br />
+    <input type="submit" value="Post" />
+  </form>
